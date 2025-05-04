@@ -154,3 +154,44 @@ Changes detected: {
   }
 }
 ```
+### 🛠️ ngDoCheck Example
+
+`ngDoCheck` is called every time Angular runs its change detection, even if no input properties have changed. Use it for custom change detection logic.
+
+#### Example:
+
+```typescript
+import { Component, Input, DoCheck } from '@angular/core';
+
+@Component({
+  selector: 'app-checker',
+  template: `<p>Name: {{ name }}</p>`
+})
+export class CheckerComponent implements DoCheck {
+  @Input() name: string = '';
+  oldName: string = '';
+
+  ngDoCheck(): void {
+    if (this.name !== this.oldName) {
+      console.log(`Name changed from ${this.oldName} to ${this.name}`);
+      this.oldName = this.name;
+    }
+  }
+}
+```
+```html
+<!-- app.component.html -->
+<app-checker [name]="userName"></app-checker>
+<input [(ngModel)]="userName" placeholder="Enter name" />
+
+```
+```typescript
+export class AppComponent {
+  userName = '';
+}
+```
+#### Outout in console
+```yaml
+Name changed from  to John
+
+```
