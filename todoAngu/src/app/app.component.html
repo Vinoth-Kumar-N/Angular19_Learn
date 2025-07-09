@@ -1,0 +1,44 @@
+<main>
+  <div class="flex flex-col items-center justify-start h-screen bg-gray-100 pt-4">
+    <h2 class="text-2xl"> Welcome to Angular Todo App</h2>
+    <p class="text-lg">This is a simple todo app built with Angular.</p>
+    <p class="text-lg">You can add, edit, and delete todos.</p>
+    <form (submit)="addTask()">
+      <input type="text" [(ngModel)]="Task" class="border border-gray-300 rounded px-4 py-2 mb-3 w-80 mr-2 mt-3"
+        placeholder="Enter a New Task" name="Task">
+      <button type="submit" class="bg-slate-500 px-4 py-2 rounded m">Add Task</button>
+    </form>
+
+    <div class="">
+      <div class="flex items-center justify-between w-[400px] mt-5">
+        <h1 class="text-2xl text-blue-500">My Tasks</h1>
+      </div>
+      <div class="border border-gray-300 h-[200px] w-[400px] overflow-y-auto mt-5">
+
+        <span *ngIf="Todos.length === 0" class="">No Available Tasks</span>
+        <ul *ngFor="let todo of Todos; let i = index" class="flex flex-col items-center justify-center">
+          <li class="flex justify-between items-center w-full px-4 py-2 border-b border-gray-200">
+
+            <!-- ⬇️ Checkbox + task title -->
+            <div class="flex items-center gap-2">
+              <input type="checkbox" [checked]="todo.Completed" (change)="toggleTask(i)"
+                class="accent-green-600 w-4 h-4" />
+
+              <span [ngClass]="{ 'line-through text-gray-500': todo.Completed }">
+                {{ todo.Title }}
+              </span>
+            </div>
+
+            <!-- ⬇️ Action buttons -->
+            <div>
+              <button (click)="editTask(i)" class="bg-yellow-500 px-2 py-1 rounded text-white mr-2">Edit</button>
+              <button (click)="deleteTask(i)" class="bg-red-500 px-2 py-1 rounded text-white">Delete</button>
+            </div>
+          </li>
+        </ul>
+
+
+      </div>
+    </div>
+  </div>
+</main>
